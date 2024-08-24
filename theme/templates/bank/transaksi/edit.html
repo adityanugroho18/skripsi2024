@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block extra_style %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock extra_style %}
+{% block content %}
+<!-- Page Header-->
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+    <div class="w-full mb-1">
+        <div class="mb-4">
+            <nav class="flex mb-5" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-primary-600">
+                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg> Dashboard </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">Bank</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="{% url "transaksi_bank.index" %}" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">Transaksi Bank</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">Edit</span>
+                    </div>
+                </li>
+            </ol>
+            </nav>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">{{ title }}</h1>
+        </div>
+    </div>
+</div>
+{% include "partials/_alert.html" %}
+<!-- Form -->
+<div class="flex flex-col mt-4">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="m-4 p-6 bg-white border border-gray-200 rounded-lg shadow">
+                <form action="{% url "transaksi_bank.update" kode_transaksi=transaksi.kode_transaksi %}" method="POST">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 xl:grid-cols-4 xl:gap-4">
+                        <div class="mb-5">
+                            <label for="kode_transaksi" class="block mb-2 text-sm font-medium text-gray-900">
+                                Kode Transaksi
+                            </label>
+                            <input type="text" id="disabled-input-2" aria-label="disabled input 2" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="{{ transaksi.kode_transaksi }}" disabled readonly>
+                        </div>
+                        <div class="mb-5">
+                            <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
+                                Tanggal<span class="text-red-500">*</span>
+                            </label>
+                            <input type="date" name="tanggal" id="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{transaksi.tanggal|date:'Y-m-d'}}" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Tipe<span class="text-red-500">*</span>
+                            </label>
+                            <select name="tipe" id="tipe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option>-- Pilih --</option>
+                                {% for item in tipe %}
+                                    <option value="{{ item }}" {% if item == transaksi.tipe %}selected{% endif %}>{{ item|title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-5">
+                            <label for="kode_akun" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Kode Akun Bank<span class="text-red-500">*</span>
+                            </label>
+                            <select name="kode_akun" id="kode_akun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option>-- Pilih --</option>
+                                {% for item in kode_akun %}
+                                    <option value="{{ item.kode_akun }}" {% if item.kode_akun == transaksi.kode_akun_id %}selected{% endif %}>
+                                        {{ item.kode_akun }} - {{ item.nama|title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mt-4">
+                        <span class="font-bold my-4 text-xl">Rincian</span>
+                        <div class="d-content">
+                            {% for row in detail %}
+                                <div class="grid grid-cols-1 xl:grid-cols-3 xl:gap-4 mt-4 d-row">
+                                    <input type="hidden" name="d_id[]" id="d_id" value="{{ row.id }}">
+                                    <div class="mb-5">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                            Kode Lawan<span class="text-red-500">*</span>
+                                        </label>
+                                        <select name="d_kode_lawan[]" id="d_kode_lawan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                            <option value="0">-- Pilih --</option>
+                                            {% for item in kode_lawan %}
+                                                <option value="{{ item.kode_akun }}" {% if item.kode_akun == row.kode_lawan_id %}selected{% endif %}>
+                                                    {{ item.kode_akun }} - {{ item.nama|title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900">
+                                            Nominal <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="text" name="d_nominal[]" id="d_nominal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" oninput="currencyInput(this); calculateTotal()"
+                                            value="{{row.total|currency_format}}" placeholder="ex: 100.000" />
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900">
+                                            Keterangan
+                                        </label>
+                                        <div class="flex">
+                                            <input type="text" name="d_ket[]" id="d_ket" class="rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
+                                            value="{{row.keterangan}}" />
+                                            <div class="inline-flex items-center px-3 gap-3">
+                                                <button type="button" class="btn-plus">
+                                                    <svg class="w-6 h-6 text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    </svg>
+                                                </button>
+                                                <button type="button" class="btn-minus">
+                                                    <svg class="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <div class="total-display mt-4 flex flex-col">
+                            <div>
+                                <span class="float-end text-3xl">Total : <span class="total-text font-bold">{{ transaksi.total|currency_format }}</span></span>
+                                <input type="hidden" name="total" id="total" value="{{ transaksi.total }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col mt-4">
+                        <div>
+                            <button type="submit" class="float-end ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Simpan</button>
+                            <button type="reset" class="float-end text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    // Function to calculate total
+    function calculateTotal() {
+        var total = 0
+        $('.d-row').each(function(index) {
+            var d_nominal = $(this).find('#d_nominal') ? clearFormatRupiah($(this).find('#d_nominal').val()) : 0
+            total += isNaN(d_nominal) ? 0 : d_nominal
+        })
+        $('#total').val(total)
+        $('.total-text').html(formatRupiah(total))
+    }
+    $(document).ready(function() {
+        function initializeSelect2() {
+            $('.select2').select2();
+        }
+    
+        initializeSelect2();
+
+        // Function to handle the addition of a new d-row
+        $(document).on('click', '.btn-plus', function() {
+            // Clone the last .d-row element
+            if ($('.d-row').children().length > 1) {
+                var newRow = $('.d-row').first().clone();
+            }
+            else {
+                var newRow = $('.d-row').clone();
+            }
+
+            // Clear the values in the cloned inputs
+            newRow.find('select').val('0');
+            newRow.find('input').val('');
+            newRow.find('.btn-minus').removeClass('hidden');
+
+            // Set the d_id value to zero
+            newRow.find('#d_id').val(0)
+
+            // Append the cloned and cleared row to the container
+            $('.d-content').append(newRow);
+
+            // Re-initialize Select2 for the newly added row
+            initializeSelect2();
+
+            // Re-calculate total
+            calculateTotal()
+        });
+    
+        // Function to handle the removal of the specific .d-row element
+        $(document).on('click', '.btn-minus', function() {
+            // Remove the closest parent .d-row element
+            $(this).closest('.d-row').remove();
+
+            // Re-calculate total
+            calculateTotal()
+        });
+    });
+</script>
+{% endblock extra_script %}

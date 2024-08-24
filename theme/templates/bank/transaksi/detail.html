@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+<!-- Page Header-->
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+    <div class="w-full mb-1">
+        <div class="mb-4">
+            <nav class="flex mb-5" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-primary-600">
+                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg> Dashboard </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">Bank</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="{% url "transaksi_bank.index" %}" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">Transaksi Bank</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">Rincian</span>
+                    </div>
+                </li>
+            </ol>
+            </nav>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">{{ title }}</h1>
+        </div>
+    </div>
+</div>
+{% include "partials/_alert.html" %}
+<!-- Form -->
+<div class="flex flex-col mt-4">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="m-4 p-6 bg-white border border-gray-200 rounded-lg shadow">
+                <div class="grid grid-cols-1 xl:grid-cols-4 xl:gap-4">
+                    <div class="mb-5">
+                        <label for="kode_transaksi" class="block mb-2 text-sm font-medium text-gray-900">
+                            Kode Transaksi
+                        </label>
+                        <input type="text" id="disabled-input-2" aria-label="disabled input 2" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="{{ transaksi.kode_transaksi }}" disabled readonly>
+                    </div>
+                    <div class="mb-5">
+                        <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
+                            Tanggal<span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="disabled-input-2" aria-label="disabled input 2" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="{{ transaksi.tanggal|date:'d-m-Y' }}" disabled readonly>
+                    </div>
+                    <div class="mb-5">
+                        <label for="tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Tipe<span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="disabled-input-2" aria-label="disabled input 2" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="{{ transaksi.tipe }}" disabled readonly>
+                    </div>
+                    <div class="mb-5">
+                        <label for="kode_akun" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Kode Akun Kas<span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="disabled-input-2" aria-label="disabled input 2" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="{{ transaksi.kode_akun_id }}" disabled readonly>
+                    </div>
+                </div>
+                <hr>
+                <div class="mt-4">
+                    <span class="font-bold my-4 text-xl">Rincian</span>
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed mt-4">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase"> # </th>
+                                <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase"> Kode Lawan </th>
+                                <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase"> Nominal </th>
+                                <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase"> Keterangan </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for item in pagination %}
+                                <tr class="hover:bg-gray-100">
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">{{ forloop.counter0|add:1 }}</td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {{ item.kode_lawan_id }} - {{ item.kode_lawan.nama }}
+                                    </td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">{{ item.total|currency_format }}</td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">{{ item.keterangan }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4" class="p-4 text-base font-medium text-gray-900 whitespace-nowrap text-center">Data tidak ditemukan</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!--- Pagination -->
+                    {% include "components/_pagination.html" %}
+                    <hr>
+                    <div class="total-display mt-4 flex flex-col">
+                        <div>
+                            <span class="float-end text-3xl">Total : <span class="total-text font-bold">{{ transaksi.total|currency_format }}</span></span>
+                            <input type="hidden" name="total" id="total" value="{{ transaksi.total }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

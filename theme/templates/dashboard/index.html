@@ -1,0 +1,182 @@
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="px-4 pt-4">
+    <div class="mb-4">
+        <span class="text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white">{{title}}</span>
+    </div>
+    <div class="grid grid-cols-1 my-4 xl:grid-cols-4 xl:gap-4">
+        <div class="bg-white flex items-center p-3 mb-3.5 border border-gray-200 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 mr-3 rounded-lg bg-blue-100">
+                <svg class="w-10 h-10 text-blue-600 lg:w-6 lg:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 0 1 1.414 0L16.414 6h-2.828l-1.293-1.293a1 1 0 0 1 0-1.414ZM12.414 6 9.707 3.293a1 1 0 0 0-1.414 0L5.586 6h6.828ZM4.586 7l-.056.055A2 2 0 0 0 3 9v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2h-4a5 5 0 0 1 0-10h4a2 2 0 0 0-1.53-1.945L17.414 7H4.586Z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="mr-4">
+                <p class="text-sm text-gray-500">Jumlah Transaksi Kas Masuk</p>
+                <p class="text-xl font-semibold text-gray-900">{{ kas_masuk|currency_format }}</p>
+            </div>
+        </div>
+        <div class="bg-white flex items-center p-3 mb-3.5 border border-gray-200 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 mr-3 rounded-lg bg-red-100">
+                <svg class="w-10 h-10 text-red-500 lg:w-6 lg:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 0 1 1.414 0L16.414 6h-2.828l-1.293-1.293a1 1 0 0 1 0-1.414ZM12.414 6 9.707 3.293a1 1 0 0 0-1.414 0L5.586 6h6.828ZM4.586 7l-.056.055A2 2 0 0 0 3 9v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2h-4a5 5 0 0 1 0-10h4a2 2 0 0 0-1.53-1.945L17.414 7H4.586Z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="mr-4">
+                <p class="text-sm text-gray-500">Jumlah Transaksi Kas Keluar</p>
+                <p class="text-xl font-semibold text-gray-900">{{ kas_keluar|currency_format }}</p>
+            </div>
+        </div>
+        <div class="bg-white flex items-center p-3 mb-3.5 border border-gray-200 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 mr-3 rounded-lg bg-blue-100">
+                <svg class="w-10 h-10 text-blue-600 lg:w-6 lg:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 0 1 1.414 0L16.414 6h-2.828l-1.293-1.293a1 1 0 0 1 0-1.414ZM12.414 6 9.707 3.293a1 1 0 0 0-1.414 0L5.586 6h6.828ZM4.586 7l-.056.055A2 2 0 0 0 3 9v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2h-4a5 5 0 0 1 0-10h4a2 2 0 0 0-1.53-1.945L17.414 7H4.586Z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="mr-4">
+                <p class="text-sm text-gray-500">Jumlah Transaksi Bank Masuk</p>
+                <p class="text-xl font-semibold text-gray-900">{{ bank_masuk|currency_format }}</p>
+            </div>
+        </div>
+        <div class="bg-white flex items-center p-3 mb-3.5 border border-gray-200 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 mr-3 rounded-lg bg-red-100">
+                <svg class="w-10 h-10 text-red-500 lg:w-6 lg:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M12.293 3.293a1 1 0 0 1 1.414 0L16.414 6h-2.828l-1.293-1.293a1 1 0 0 1 0-1.414ZM12.414 6 9.707 3.293a1 1 0 0 0-1.414 0L5.586 6h6.828ZM4.586 7l-.056.055A2 2 0 0 0 3 9v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2h-4a5 5 0 0 1 0-10h4a2 2 0 0 0-1.53-1.945L17.414 7H4.586Z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="mr-4">
+                <p class="text-sm text-gray-500">Jumlah Transaksi Bank Keluar</p>
+                <p class="text-xl font-semibold text-gray-900">{{ bank_keluar|currency_format }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
+        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <!-- Card header -->
+            <div class="items-center justify-between lg:flex">
+                <div class="mb-4 lg:mb-0 w-full">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="mb-2 text-xl font-bold text-gray-900">Transaksi Kas Terbaru</h3>
+                        </div>
+                        <div>
+                            <a href="{% url "transaksi_kas.index" %}" class="text-blue-500 underline">Lihat Selengkapnya</a>
+                        </div>
+                    </div>
+                    <span class="text-base font-normal text-gray-500">Menampilkan 5 transaksi terbaru dari periode <span class="font-semibold text-black">{{ month_name }} {{ year }}</span>.</span>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="flex flex-col mt-6">
+                <div class="overflow-x-auto rounded-lg">
+                    <div class="inline-block min-w-full align-middle">
+                        <div class="overflow-hidden shadow sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Kode Transaksi </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Tanggal </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Kode Akun </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Tipe </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Total </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in kas %}
+                                        <tr class="{% if forloop.counter|divisibleby:2 %}bg-gray-50{% else %}bg-white{% endif %}">
+                                            <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
+                                                {{ item.kode_transaksi }}
+                                            </td>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap"> {{ item.tanggal|date:'d-m-Y' }} </td>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap"> {{ item.kode_akun_id }} - {{ item.kode_akun.nama }} </td>
+                                            <td class="p-4 text-sm font-normal whitespace-nowrap">
+                                                {% if item.tipe == 'masuk' %}
+                                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ item.tipe|title }}</span>
+                                                {% else %}
+                                                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ item.tipe|title }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td class="p-4 text-sm font-semibold text-black whitespace-nowrap"> {{ item.total|currency_format }} </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="p-4 text-base font-medium text-gray-500 whitespace-nowrap text-center">Data tidak ditemukan</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <!-- Card header -->
+            <div class="items-center justify-between lg:flex">
+                <div class="mb-4 lg:mb-0 w-full">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="mb-2 text-xl font-bold text-gray-900">Transaksi Bank Terbaru</h3>
+                        </div>
+                        <div>
+                            <a href="{% url "transaksi_bank.index" %}" class="text-blue-500 underline">Lihat Selengkapnya</a>
+                        </div>
+                    </div>
+                    <span class="text-base font-normal text-gray-500">Menampilkan 5 transaksi terbaru dari periode <span class="font-semibold text-black">{{ month_name }} {{ year }}</span>.</span>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="flex flex-col mt-6">
+                <div class="overflow-x-auto rounded-lg">
+                    <div class="inline-block min-w-full align-middle">
+                        <div class="overflow-hidden shadow sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Kode Transaksi </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Tanggal </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Kode Akun </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Tipe </th>
+                                        <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"> Total </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in bank %}
+                                        <tr class="{% if forloop.counter|divisibleby:2 %}bg-gray-50{% else %}bg-white{% endif %}">
+                                            <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
+                                                {{ item.kode_transaksi }}
+                                            </td>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap"> {{ item.tanggal|date:'d-m-Y' }} </td>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap"> {{ item.kode_akun_id }} - {{ item.kode_akun.nama }} </td>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                                {% if item.tipe == 'masuk' %}
+                                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ item.tipe|title }}</span>
+                                                {% else %}
+                                                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ item.tipe|title }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td class="p-4 text-sm font-semibold text-black whitespace-nowrap"> {{ item.total|currency_format }} </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="p-4 text-base font-medium text-gray-500 whitespace-nowrap text-center">Data tidak ditemukan</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header-->
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+    <div class="w-full mb-1">
+        <div class="mb-4">
+            <nav class="flex mb-5" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-primary-600">
+                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg> Dashboard </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="{% url "user.index" %}" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">User</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">Edit</span>
+                    </div>
+                </li>
+            </ol>
+            </nav>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">{{ title }}</h1>
+        </div>
+    </div>
+</div>
+{% include "partials/_alert.html" %}
+<!-- Form -->
+<div class="flex flex-col mt-4">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="m-4 p-6 bg-white border border-gray-200 rounded-lg shadow">
+                <form action="{% url "user.update" id=user_data.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 xl:grid-cols-2 xl:gap-4">
+                        <div class="mb-5">
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Nama Depan<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="first_name" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{user_data.first_name}}" placeholder="ex: Mark" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Nama Belakang<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="last_name" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{user_data.last_name}}" placeholder="ex: Manson" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Username<span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{user_data.username}}" placeholder="ex: Manson" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Email
+                            </label>
+                            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{user_data.email}}" placeholder="ex: mark@mail.com" />
+                        </div>
+                        <div class="mb-5">
+                            <label for="group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Role<span class="text-red-500">*</span>
+                            </label>
+                            <select name="group_id" id="group_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option>-- Pilih --</option>
+                                {% for item in groups %}
+                                    <option value="{{ item.id }}" {% if item.id == user_data.group_id %}selected{% endif %}>{{ item.name|title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-5">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Password
+                                <small class="text-red-500">(Kosongi jika tidak ingin mengubah)</small>
+                            </label>
+                            <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div>
+                            <button type="submit" class="float-end ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Simpan</button>
+                            <button type="reset" class="float-end text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

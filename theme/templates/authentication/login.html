@@ -1,0 +1,54 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTIYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
+    <meta name="author" content="Themesberg">
+    <meta name="generator" content="Hugo 0.58.2">
+    <title>{{title}} - | {{ app_name }}</title>
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static "css/auth.css" %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="https://flowbite-admin-dashboard.vercel.app/favicon.ico">
+    <link rel="manifest" href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest">
+    <link rel="mask-icon" href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg" color="#5bbad5">
+</head>
+<body class="bg-gray-50">
+<main class="bg-gray-50">
+    <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
+    <a href="https://flowbite-admin-dashboard.vercel.app/" class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10">
+        <img src="{% static "img/logo.svg" %}" class="mr-4 h-11" alt="FlowBite Logo">
+        <span>{{title}}</span>
+    </a>
+    <!-- Card -->
+    <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
+        <h2 class="text-2xl font-bold text-gray-900"> Selamat datang </h2>
+        <form class="mt-8 space-y-6" action="{% url "login" %}" method="post">
+            {% include "partials/_alert.html" %}
+            {% csrf_token %}
+            <div>
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Masukkan username</label>
+                <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" placeholder="ex: jhonny" required>
+            </div>
+            <div>
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Masukkan password</label>
+                <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" required>
+            </div>
+            <button type="submit" class="float-right w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto">Login</button>
+        </form>
+    </div>
+    </div>
+</main>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="{% static "js/template.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+</body>
+</html>

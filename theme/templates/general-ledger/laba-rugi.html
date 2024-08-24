@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block extra_style %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock extra_style %}
+{% block content %}
+<!-- Page Header-->
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+    <div class="w-full mb-1">
+        <div class="mb-4">
+            <nav class="flex mb-5" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-primary-600">
+                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg> Dashboard </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">General Ledger</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">{{ title }}</span>
+                    </div>
+                </li>
+            </ol>
+            </nav>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">{{ title }}</h1>
+        </div>
+        <form action="" method="get">
+            <div class="grid grid-cols-1 xl:grid-cols-2 xl:gap-4">
+                <div class="mb-5">
+                    <label for="bulan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Bulan<span class="text-red-500">*</span>
+                    </label>
+                    <select name="bulan" id="bulan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 select2" required>
+                        <option value="">-- Pilih Bulan --</option>
+                        <option value="1" {% if fieldValues.bulan == '1' %}selected{% endif %}>Januari</option>
+                        <option value="2" {% if fieldValues.bulan == '2' %}selected{% endif %}>Februari</option>
+                        <option value="3" {% if fieldValues.bulan == '3' %}selected{% endif %}>Maret</option>
+                        <option value="4" {% if fieldValues.bulan == '4' %}selected{% endif %}>April</option>
+                        <option value="5" {% if fieldValues.bulan == '5' %}selected{% endif %}>Mei</option>
+                        <option value="6" {% if fieldValues.bulan == '6' %}selected{% endif %}>Juni</option>
+                        <option value="7" {% if fieldValues.bulan == '7' %}selected{% endif %}>Juli</option>
+                        <option value="8" {% if fieldValues.bulan == '8' %}selected{% endif %}>Agustus</option>
+                        <option value="9" {% if fieldValues.bulan == '9' %}selected{% endif %}>September</option>
+                        <option value="10" {% if fieldValues.bulan == '10' %}selected{% endif %}>Oktober</option>
+                        <option value="11" {% if fieldValues.bulan == '11' %}selected{% endif %}>November</option>
+                        <option value="12" {% if fieldValues.bulan == '12' %}selected{% endif %}>Desember</option>
+                    </select>
+                </div>
+                <div class="mb-5">
+                    <label for="tahun" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Tahun<span class="text-red-500">*</span>
+                    </label>
+                    <select name="tahun" id="tahun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 select2" required>
+                        <option value="">-- Pilih Tahun --</option>
+                        <option value="2024" {% if fieldValues.tahun == '2024' %}selected{% endif %}>2024</option>
+                        <option value="2025" {% if fieldValues.tahun == '2025' %}selected{% endif %}>2025</option>
+                        <option value="2026" {% if fieldValues.tahun == '2026' %}selected{% endif %}>2026</option>
+                        <option value="2027" {% if fieldValues.tahun == '2027' %}selected{% endif %}>2027</option>
+                        <option value="2028" {% if fieldValues.tahun == '2028' %}selected{% endif %}>2028</option>
+                        <option value="2029" {% if fieldValues.tahun == '2029' %}selected{% endif %}>2029</option>
+                        <option value="2030" {% if fieldValues.tahun == '2030' %}selected{% endif %}>2030</option>
+                    </select>
+                </div>
+            </div>
+            <div class="float-end">
+                {% if rekening_penjualan or rekening_beban or rekening_pajak %}
+                    <a href="{% url "laba_rugi.export_excel" %}?bulan={{ fieldValues.bulan }}&tahun={{ fieldValues.tahun }}" class="inline-flex items-center justify-center w-1/2 px-3 py-2 mx-1 text-sm font-medium text-center text-green-500 bg-white border border-green-500 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
+                        <svg class="w-5 h-5 mr-2 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2"/>
+                        </svg> Unduh Excel </a>
+                {% endif %}
+                <button type="submit"  class="inline-flex items-center justify-center w-1/2 px-3 py-2 mx-1 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
+                    <svg class="w-5 h-5 mr-2 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                    </svg> Cari </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% if rekening_penjualan or rekening_beban or rekening_pajak %}
+    <!-- Table-->
+    <div class="flex flex-col mr-4">
+        <div class="overflow-x-auto">
+            <div class="inline-block min-w-full align-middle">
+                <div class="shadow">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed m-4">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th colspan="2" scope="col" class="p-4 text-md font-medium text-left text-gray-500 uppercase"> Pendapatan </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for item in rekening_penjualan %}
+                                <tr>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {{ item.nama }}
+                                    </td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {{ item.penjualan|currency_format }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Total Pendapatan</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ total_penjualan|currency_format }}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Laba Rugi Kotor</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ laba_rugi_kotor|currency_format }}</th>
+                            </tr>
+                            {% for item in rekening_beban %}
+                                <tr>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {{ item.nama }}
+                                    </td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {% if item.tipe == 'debit' %}
+                                            {{ item.beban|currency_format }}
+                                        {% else %}
+                                            ({{ item.beban|currency_format }})
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Total Beban</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ total_beban|currency_format }}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Laba Rugi Sebelum Pajak</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ laba_rugi_sebelum_pajak|currency_format }}</th>
+                            </tr>
+                            {% for item in rekening_pajak %}
+                                <tr>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {{ item.nama }}
+                                    </td>
+                                    <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs">
+                                        {% if item.tipe == 'debit' %}
+                                            {{ item.pajak|currency_format }}
+                                        {% else %}
+                                            ({{ item.pajak|currency_format }})
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Total Pajak</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ total_pajak|currency_format }}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">Laba Rugi Bersih</th>
+                                <th scope="col" class="bg-gray-100 p-4 text-md font-medium text-left text-gray-500 uppercase">{{ laba_rugi_bersih|currency_format }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% include "partials/_alert.html" %}
+{% endblock content %}
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        initializeSelect2()
+    })
+</script>
+{% endblock extra_script %}
