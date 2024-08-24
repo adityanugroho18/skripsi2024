@@ -102,6 +102,9 @@ DATABASES = {
         "PASSWORD": '',
         "HOST": 'localhost',
         "PORT": 3306,
+        'OPTIONS': {
+            'unix_socket': 'C:/path/to/mysql.sock',  # Jika ada
+        },
     }
 }
 
